@@ -1,0 +1,203 @@
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url(./plv_extra_assets/fonts/glyphicons-halflings-regular.woff2) format('woff2')
+}
+
+.glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  background: #f5f5f5;
+  min-width: 1260px;
+}
+
+.glyphicon-minus:before {
+  content: "\2212";
+}
+
+.glyphicon-plus:before {
+  content: "\002b";
+}
+
+.plv-audit > .card {
+  margin: 20px
+}
+
+.plv-audit .page-item.active .page-link {
+  background: #429588;
+  border-color: #429588;
+}
+
+.plv-audit .card > .card-header > p {
+  font-size: 16px;
+  color: #333;
+  margin: 0;
+}
+
+.plv-audit-control-item {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.plv-audit-control-item > input {
+  width: 160px;
+  border: 1px solid #ddd;
+  height: 32px;
+  color: #333;
+  border-radius: .1875rem;
+}
+
+.plv-audit-control-item label {
+  text-align: right;
+  width: 70px;
+}
+
+.plv-audit-control-item > button > span {
+  display: inline-block;
+  width: 110px;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.score-box {
+  display: inline-block;
+  width: 160px;
+}
+
+.score-box > input {
+  border: 1px solid #ddd;
+  height: 32px;
+  color: #333;
+  border-radius: .1875rem;
+}
+
+.plv-audit-control__btn-group {
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-self: flex-end;
+}
+
+.plv-audit-control__btn-group button {
+  width: 70px;
+  margin-left: 10px;
+}
+
+.plv-audit-control__btn-group .btn-success {
+  background-color: #429588;
+}
+
+.plv-audit button.plv-audit-dropdow, .plv-audit button.plv-audit-dropdow:active {
+  border-color: #ddd!important;
+  height: 32px;
+  line-height: 1;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  background: #fff;
+  color: #333;
+  width: 160px;
+  vertical-align: baseline;
+  text-align: left;
+}
+
+
+.table tr > td > img {
+  width: 100px;
+  height: 56px;
+}
+
+.table > thead > tr > th {
+  font-size: 13px;
+}
+
+.plv-audit .btn-light {
+  border-color: #ddd;
+}
+
+#previewVideo .btn-light {
+  border-color: #ddd;
+}
+
+.table-operate {
+  font-size: 0;
+}
+
+.modal-body iframe {
+  border: 0;
+  width: 100%;
+  height: 263px;
+  background: #212121;
+}
+
+.table-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+.table-loading > .spinner {
+  font-size: 32px;
+}
+
+.table-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.table-pagination__go-to {
+  margin-left: 25px;
+}
+
+.table-pagination__go-to span {
+  color: #606266;
+}
+
+.table-pagination__go-to > input {
+  height: 36px;
+  width: 37px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.table-no-data p {
+  height: 200px;
+  text-align: center;
+  line-height: 200px;
+  font-size: 30px;
+  color: #333;
+}
+
+.toast {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.plv-toast .toast-body {
+  padding: 15px 20px;
+  color: #e6a23c;
+  background-color: #fdf6ec!important;
+  border: 1px solid #faecd8;
+}
+
+.treeview span.icon {
+  margin-bottom: 5px;
+}
