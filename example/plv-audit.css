@@ -1,4 +1,3 @@
-
 @font-face {
   font-family: 'Glyphicons Halflings';
   src: url(./plv_extra_assets/fonts/glyphicons-halflings-regular.woff2) format('woff2')
@@ -133,6 +132,10 @@ html, body {
 
 .table-operate {
   font-size: 0;
+
+  button {
+    margin-right: 4px;
+  }
 }
 
 .modal-body iframe {
@@ -196,6 +199,13 @@ html, body {
   color: #e6a23c;
   background-color: #fdf6ec!important;
   border: 1px solid #faecd8;
+}
+
+.plv-toast-success .toast-body {
+  padding: 15px 20px;
+  color: #67c23a;
+  background-color: #f0f9ff!important;
+  border: 1px solid #c2e7b0;
 }
 
 .treeview span.icon {

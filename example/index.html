@@ -82,7 +82,7 @@
                 </button>
                 <div class="dropdown-menu" id="sceneDropdown">
                   <span class="dropdown-item">全部</span>
-                  <span class="dropdown-item">正常</span>
+                  <span class="dropdown-item">已发布</span>
                   <span class="dropdown-item">涉政</span>
                   <span class="dropdown-item">违法</span>
                   <span class="dropdown-item">色情</span>
@@ -205,11 +205,20 @@
             </button>
           </div>
           <div class="modal-body">
+            <!-- <div class="js-categorySearch" id="cataSearch">
+              <input placeholder="通过分类名称查找" id="cataSearchInput"/>
+              <span id="cataSearchIcon">
+                <i class="glyphicon glyphicon-search"></i>
+              </span>
+            </div> -->
             <div id="cata-tree"></div>
           </div>
         </div>
+        <!-- /.modal-content -->
       </div>
+      <!-- /.modal-dialog -->
     </div>
+    <!-- /.modal -->
 
     <div id="previewVideo" class="modal fade" tabindex="-1" role="dialog">
       <div class="modal-dialog">
@@ -234,6 +243,33 @@
       </div>
     </div>
 
+    <!-- 违规图片模态框 -->
+    <div id="violatedImagesModal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">违规图片详情</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="violatedImagesContainer">
+              <!-- 违规图片内容将在这里动态生成 -->
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- toast -->
     <div class="plv-toast toast" role="alert">
       <div class="toast-body">
@@ -242,6 +278,13 @@
       </div>
     </div>
 
+    <!-- success toast -->
+    <div class="plv-toast-success toast" role="alert">
+      <div class="toast-body">
+        <i class="icon-checkmark"></i>
+        <span id="successText"></span>
+      </div>
+    </div>
     <script src="../dist/plv-vod-video-audit.umd.js"></script>
     <script src="./global_assets/js/main/jquery.min.js"></script>
     <script src="./global_assets/js/main/bootstrap.bundle.min.js"></script>
