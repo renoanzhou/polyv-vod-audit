@@ -14,8 +14,7 @@ const pageSetting = {
 };
 
 const auditInstance = new PlvAudit({
-  userId: '',
-  // 如果sign，hash过期，PlvAudit会从这个func重新获取最新的sign和hash, 所以getUserInfo需要是function
+  userId: 'xxx',
   getUserInfo: (callback) => {
     const ts = Date.now();
 
@@ -208,9 +207,14 @@ function getTableItemTemplate(data) {
             </td>
             <td>${data.uploader}</td>
             <td>${data.cataName}</td>
-            <td>${data.status}</td>
+            <td>
+              <div>${data.status}</div>
+            </td>
             <td>${data.autoScore}</td>
-            <td>${data.autoLabel}</td>
+            <td>${data.autoLabel}
+              ${data.violatedImages && data.violatedImages.length > 0 ?
+    `<button class="btn btn-warning btn-sm mt-1" onclick="showViolatedImages('${data.videoPoolId}')">查看</button>` :
+    ''}</td>
             <td>
               <div>${data.ptime}</div>
               <div>${data.sourceFilesize}</div>
@@ -225,7 +229,8 @@ function getTableItemTemplate(data) {
                 data-toggle="modal">查看视频
               </button>
               <button class="btn btn-light btn-sm" ${data.status === '已禁播' && 'disabled'} onclick="forbidden('${data.videoPoolId}', 1)">禁播</button>
-              <button class="btn btn-light btn-sm" ${data.status !== '已禁播' && 'disabled'} onclick="forbidden('${data.videoPoolId}', 0)">解禁</button>
+              <button class="btn btn-light btn-sm" onclick="forbidden('${data.videoPoolId}', 0)">解禁</button>
+              <button class="btn btn-light btn-sm" onclick="setPublish('${data.videoPoolId}', ${data.statusCode})">审核通过</button>
             </td>
 
           </tr>
@@ -237,8 +242,49 @@ function previewVideo(vid) {
   $('#videoPreviewPage').data('vid', vid);
 }
 
+// 显示违规图片
+function showViolatedImages(videoPoolId) {
+  // 从当前页面数据中查找对应的违规图片数据
+  const currentTableData = window.currentTableData || [];
+  const videoData = currentTableData.find(item => item.videoPoolId === videoPoolId);
+
+
+  if (!videoData || !videoData.violatedImages || videoData.violatedImages.length === 0) {
+    warning('未找到违规图片数据');
+    return;
+  }
+
+  const violatedImages = videoData.violatedImages;
+
+  let imagesHtml = '';
+
+  violatedImages.forEach((image, index) => {
+    imagesHtml += `
+      <div class="violated-image-item mb-3">
+        <div class="row">
+          <div class="col-md-6">
+            <img src="${image.imageUrl}" class="img-fluid" alt="违规图片${index + 1}" style="max-height: 300px; border: 1px solid #ddd; border-radius: 4px;">
+          </div>
+          <div class="col-md-6">
+            <h6>审核信息：</h6>
+            <p><strong>标签：</strong> ${image.auditLabel}</p>
+            <p><strong>得分：</strong> ${image.auditScore}</p>
+            <p><strong>结果：</strong> ${image.auditResult}</p>
+          </div>
+        </div>
+      </div>
+      ${index < violatedImages.length - 1 ? '<hr>' : ''}
+    `;
+  });
+
+  $('#violatedImagesContainer').html(imagesHtml);
+  $('#violatedImagesModal').modal('show');
+}
+
 // 根据接口数据渲染table
 function renderTable(arr = []) {
+  // 保存当前表格数据供其他函数使用
+  window.currentTableData = arr;
 
   let template = '';
 
@@ -268,6 +314,7 @@ function resetSearch() {
 
   searchParams = getDefaultSearch();
 }
+
 // 搜索
 function search(page = 1) {
   const params = getSearchParam();
@@ -349,6 +396,26 @@ function forbidden(vid, isForbindenVideo) {
   }
 }
 
+// 视频发布
+async function setPublish(vid, status) {
+  try {
+    const res = await auditInstance.setPublish({
+      vids: vid,
+      status: Number(status)
+    });
+
+    if (res.code !== 200) {
+      return warning(res.message);
+    }
+
+    success('审核发布成功');
+
+    search(pageSetting.page);
+  } catch (error) {
+    warning(error.message);
+  }
+}
+
 // 查看视频的点击禁播或解禁
 function modalForbidden(isForbindenVideo) {
   const vid = $('#videoPreviewPage').data('vid');
@@ -413,6 +480,11 @@ function warning(text = '') {
   $('.plv-toast').toast('show');
 }
 
+function success(text = '') {
+  $('#successText').text(text);
+  $('.plv-toast-success').toast('show');
+}
+
 function init() {
   initDatePicker();
   initScore();
@@ -433,6 +505,10 @@ function init() {
   });
 
   $('.plv-toast').toast({
+    delay: 2000
+  });
+
+  $('.plv-toast-success').toast({
     delay: 2000
   });
 
